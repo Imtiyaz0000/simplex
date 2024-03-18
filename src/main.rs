@@ -9,6 +9,7 @@ fn main() {
     let var_num: usize;
     let program: Result<SimplexTable, String>;
     let constraint_num: usize;
+    let max: bool;
     println!("Welcome to the simplex algorithm solver!!11! (by Imtiyaz)");
     thread::sleep(Duration::from_secs(3));
     loop {
@@ -162,11 +163,9 @@ fn main() {
                     };
 
                     if input.trim() == "l" {
-                        constraints
-                            .push(SimplexConstraint::LessThan(temp_constraint, right));
+                        constraints.push(SimplexConstraint::LessThan(temp_constraint, right));
                     } else if input.trim() == "g" {
-                        constraints
-                            .push(SimplexConstraint::GreaterThan(temp_constraint, right));
+                        constraints.push(SimplexConstraint::GreaterThan(temp_constraint, right));
                     }
                     break;
                 }
@@ -182,26 +181,23 @@ fn main() {
         println!("Is this a maximise or minimise problem? (min/max): ");
         let mut input = String::new();
 
-        match io::stdin()
-            .read_line(&mut input) {
-                Ok(_) => (),
-                Err(e) => {
-                    println!("Error while reading input: {}", e);
-                    continue;
-                }
+        match io::stdin().read_line(&mut input) {
+            Ok(_) => (),
+            Err(e) => {
+                println!("Error while reading input: {}", e);
+                continue;
             }
+        }
         if input.trim() == "min" {
-            
-            program = Simplex::minimize(&objective)
-                .with(constraints);
+            max = false;
+            program = Simplex::minimize(&objective).with(constraints);
             break;
         } else if input.trim() == "max" {
-
+            max = true;
             for i in objective.iter_mut() {
                 *i *= -1.0;
             }
-            program = Simplex::minimize(&objective)
-                .with(constraints);
+            program = Simplex::minimize(&objective).with(constraints);
             break;
         } else {
             println!("Please enter either 'min' or 'max'");
@@ -210,12 +206,18 @@ fn main() {
     }
 
     let mut simplex = program.unwrap();
+    let mult: f64;
+    if max {
+        mult = -1.0;
+    } else {
+        mult = 1.0;
+    }
     match simplex.solve() {
         SimplexOutput::UniqueOptimum(optimum) => {
-            println!("The unique optimum is: {}", optimum);
-        },
+            println!("The unique optimum is: {}", optimum * mult);
+        }
         SimplexOutput::MultipleOptimum(optimum) => {
-            println!("The multiple optimums are: {}", optimum);
+            println!("The multiple optimums are: {}", optimum * mult);
         }
         SimplexOutput::InfiniteSolution => {
             println!("The problem has infinite solutions");
