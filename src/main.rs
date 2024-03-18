@@ -7,7 +7,7 @@ fn main() {
     let mut objective: Vec<f64> = Vec::new();
     let mut constraints: Vec<SimplexConstraint> = Vec::new();
     let var_num: usize;
-    let mut program: Result<SimplexTable, String>;
+    let program: Result<SimplexTable, String>;
     let constraint_num: usize;
     println!("Welcome to the simplex algorithm solver!!11! (by Imtiyaz)");
     thread::sleep(Duration::from_secs(3));
@@ -135,7 +135,7 @@ fn main() {
                     }
                 }
 
-                if input.trim() != "l" || input.trim() != "g" {
+                if input.trim() != "l" && input.trim() != "g" {
                     println!("Please enter either 'l' or 'g'");
                     continue;
                 }
@@ -163,12 +163,11 @@ fn main() {
 
                     if input.trim() == "l" {
                         constraints
-                            .push(SimplexConstraint::LessThan(temp_constraint.clone(), right));
+                            .push(SimplexConstraint::LessThan(temp_constraint, right));
                     } else if input.trim() == "g" {
                         constraints
-                            .push(SimplexConstraint::GreaterThan(temp_constraint.clone(), right));
+                            .push(SimplexConstraint::GreaterThan(temp_constraint, right));
                     }
-
                     break;
                 }
                 break;
@@ -192,9 +191,40 @@ fn main() {
                 }
             }
         if input.trim() == "min" {
+            
             program = Simplex::minimize(&objective)
                 .with(constraints);
+            break;
+        } else if input.trim() == "max" {
+
+            for i in objective.iter_mut() {
+                *i *= -1.0;
+            }
+            program = Simplex::minimize(&objective)
+                .with(constraints);
+            break;
+        } else {
+            println!("Please enter either 'min' or 'max'");
+            continue;
         }
     }
 
+    let mut simplex = program.unwrap();
+    match simplex.solve() {
+        SimplexOutput::UniqueOptimum(optimum) => {
+            println!("The unique optimum is: {}", optimum);
+        },
+        SimplexOutput::MultipleOptimum(optimum) => {
+            println!("The multiple optimums are: {}", optimum);
+        }
+        SimplexOutput::InfiniteSolution => {
+            println!("The problem has infinite solutions");
+        }
+        SimplexOutput::NoSolution => {
+            println!("The problem has no solution");
+        }
+    }
+    for i in 1..=var_num {
+        println!("optimal value of x{i} = {}", simplex.get_var(i).unwrap());
+    }
 }
