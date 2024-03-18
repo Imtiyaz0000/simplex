@@ -206,12 +206,12 @@ fn main() {
     }
 
     let mut simplex = program.unwrap();
-    let mult: f64;
-    if max {
-        mult = -1.0;
+
+    let mult: f64 = if max {
+        -1.0
     } else {
-        mult = 1.0;
-    }
+        1.0
+    };
     match simplex.solve() {
         SimplexOutput::UniqueOptimum(optimum) => {
             println!("The unique optimum is: {}", optimum * mult);
