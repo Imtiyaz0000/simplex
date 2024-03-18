@@ -10,7 +10,7 @@ fn main() {
     let program: Result<SimplexTable, String>;
     let constraint_num: usize;
     let max: bool;
-    println!("Welcome to the simplex algorithm solver!!11! (by Imtiyaz)");
+    println!("Welcome to the simplex algorithm solver!!11! (by Imtiyaz🤑)");
     thread::sleep(Duration::from_secs(3));
     loop {
         println!("Please enter the number of variables: ");
@@ -27,7 +27,7 @@ fn main() {
             Ok(num) => num,
             Err(e) => {
                 println!(
-                    "Failed to parse input: {} (Make sure you entered a number)",
+                    "Failed to parse input: {} (Make sure you entered a number💀)",
                     e
                 );
                 continue;
@@ -45,7 +45,7 @@ fn main() {
             match io::stdin().read_line(&mut input) {
                 Ok(_) => (),
                 Err(e) => {
-                    println!("Failed to take input: {}", e);
+                    println!("Failed to take input: {} ☠️", e);
                     continue;
                 }
             }
@@ -53,7 +53,7 @@ fn main() {
                 Ok(num) => num,
                 Err(e) => {
                     println!(
-                        "Failed to parse input: {} (Make sure you entered a number)",
+                        "Failed to parse input: {} (Make sure you entered a number) 💀☠️",
                         e
                     );
                     continue;
@@ -66,15 +66,15 @@ fn main() {
         }
     }
 
-    println!("Lets now set up the constraints!: ");
+    println!("Lets now set up the constraints!🤩: ");
 
     loop {
-        println!("Enter the number of constraints: ");
+        println!("Enter the number of constraints👀: ");
         let mut input = String::new();
         match io::stdin().read_line(&mut input) {
             Ok(_) => (),
             Err(e) => {
-                println!("Failed to take input: {}", e);
+                println!("Failed to take input: {} ☠️", e);
                 continue;
             }
         }
@@ -83,7 +83,7 @@ fn main() {
             Ok(num) => num,
             Err(e) => {
                 println!(
-                    "Failed to parse input: {} (Make sure you entered a number)",
+                    "Failed to parse input: {} (Make sure you entered a number)☠️☠️",
                     e
                 );
                 continue;
@@ -93,11 +93,11 @@ fn main() {
     }
 
     {
-        println!("Enter the coefficients of the constraints: ");
+        println!("Enter the coefficients of the constraints👀: ");
         let mut i: usize = 1;
         loop {
             let mut temp_constraint: Vec<f64> = Vec::new();
-            println!("Lets set up constrain no. {}", i);
+            println!("Lets set up constrain no. {} 😎", i);
             let mut j: usize = 1;
             loop {
                 println!("Enter the coefficient for x{}: ", j);
@@ -105,7 +105,7 @@ fn main() {
                 match io::stdin().read_line(&mut input) {
                     Ok(_) => (),
                     Err(e) => {
-                        println!("Failed to take input: {}", e);
+                        println!("Failed to take input: {} ☠️", e);
                         continue;
                     }
                 }
@@ -113,7 +113,7 @@ fn main() {
                     Ok(num) => num,
                     Err(e) => {
                         println!(
-                            "Failed to parse input: {} (Make sure you entered a number)",
+                            "Failed to parse input: {} (Make sure you entered a number)💀💀",
                             e
                         );
                         continue;
@@ -126,28 +126,28 @@ fn main() {
             }
 
             loop {
-                println!("Is this constraint a less than or greater than constraint? (l/g)");
+                println!("Is this constraint a less than or greater than constraint? (l/g)😝");
                 let mut input = String::new();
                 match io::stdin().read_line(&mut input) {
                     Ok(_) => (),
                     Err(e) => {
-                        println!("Failed to take input: {}", e);
+                        println!("Failed to take input: {}💀☠️", e);
                         continue;
                     }
                 }
 
                 if input.trim() != "l" && input.trim() != "g" {
-                    println!("Please enter either 'l' or 'g'");
+                    println!("Please enter either 'l' or 'g' ☠️☠️☠️☠️☠️");
                     continue;
                 }
 
                 loop {
-                    println!("Enter the right hand side of the constraint: ");
+                    println!("Enter the right hand side of the constraint: 😭");
                     let mut right = String::new();
                     match io::stdin().read_line(&mut right) {
                         Ok(_) => (),
                         Err(e) => {
-                            println!("Failed to take input: {}", e);
+                            println!("Failed to take input: {} ☠️☠️", e);
                             continue;
                         }
                     }
@@ -155,7 +155,7 @@ fn main() {
                         Ok(num) => num,
                         Err(e) => {
                             println!(
-                                "Failed to parse input: {} (Make sure you entered a number)",
+                                "Failed to parse input: {} (Make sure you entered a number) 💀",
                                 e
                             );
                             continue;
@@ -178,13 +178,13 @@ fn main() {
         }
     }
     loop {
-        println!("Is this a maximise or minimise problem? (min/max): ");
+        println!("Is this a maximise or minimise problem? (min/max): 🤑🤑🤑");
         let mut input = String::new();
 
         match io::stdin().read_line(&mut input) {
             Ok(_) => (),
             Err(e) => {
-                println!("Error while reading input: {}", e);
+                println!("Error while reading input: {} 💀💀💀", e);
                 continue;
             }
         }
@@ -200,7 +200,7 @@ fn main() {
             program = Simplex::minimize(&objective).with(constraints);
             break;
         } else {
-            println!("Please enter either 'min' or 'max'");
+            println!("Please enter either 'min' or 'max' 😭");
             continue;
         }
     }
@@ -214,19 +214,23 @@ fn main() {
     };
     match simplex.solve() {
         SimplexOutput::UniqueOptimum(optimum) => {
-            println!("The unique optimum is: {}", optimum * mult);
+            println!("The unique optimum is: {} 😎", optimum * mult);
         }
         SimplexOutput::MultipleOptimum(optimum) => {
-            println!("The multiple optimums are: {}", optimum * mult);
+            println!("The optimum is: {} 😎", optimum * mult);
         }
         SimplexOutput::InfiniteSolution => {
-            println!("The problem has infinite solutions");
+            println!("The problem has infinite solutions 😳");
         }
         SimplexOutput::NoSolution => {
-            println!("The problem has no solution");
+            println!("The problem has no solution 🥺");
         }
     }
     for i in 1..=var_num {
-        println!("optimal value of x{i} = {}", simplex.get_var(i).unwrap());
+        println!("optimal value of x{i} = {} 👀", simplex.get_var(i).unwrap());
     }
+    println!("press enter to exit 🥺🥺🥺");
+
+    let mut _input = String::new();
+    io::stdin().read_line(&mut _input).unwrap();
 }
