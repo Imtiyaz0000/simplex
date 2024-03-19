@@ -13,7 +13,7 @@ fn main() {
     println!("Welcome to the simplex algorithm solver!!11! (by Imtiyaz🤑)");
     thread::sleep(Duration::from_secs(3));
     loop {
-        println!("Please enter the number of variables: ");
+        println!("Please enter the number of variables: 🔥");
         let mut input = String::new();
         match io::stdin().read_line(&mut input) {
             Ok(_) => (),
@@ -37,7 +37,7 @@ fn main() {
     }
 
     {
-        println!("Enter the coefficients of the objective function: ");
+        println!("Enter the coefficients of the objective function: 🔥🔥🔥");
         let mut i = 1;
         loop {
             println!("Enter the coefficient for x{}: ", i);
